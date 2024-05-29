@@ -151,3 +151,13 @@ cython_debug/
 #  option (not recommended) you can uncomment the following to ignore the entire idea folder.
 #.idea/
 openai_key.txt
+/data/120 Rocks
+/data/360 Rocks
+/data/Categorization Data
+/data/Direct Dimension Ratings Data
+data/fit_ensemble.py
+/data/Rocks Library
+/data/Similarity Judgments Data
+data/mds_120.txt
+data/mds_360.txt
+data/ratings_120.txt
