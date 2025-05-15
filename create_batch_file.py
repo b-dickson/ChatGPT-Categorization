@@ -88,10 +88,24 @@ def prepare_request(rock1, rock2):
     }
 
 
-output_file = "batch_requests.jsonl"
+output_folder = "batch_files"
+os.makedirs(output_folder, exist_ok=True)
 pairs = [comb for comb in combinations(image_names, 2)]
-with open(output_file, "w") as f:
-    for pair in pairs[:20]:
-        rock1, rock2 = pair
-        request = prepare_request(rock1, rock2)
-        f.write(json.dumps(request) + "\n")
+
+file_index = 1
+line_count = 0
+batch_file = open(f"{output_folder}/batch_requests_{file_index}.jsonl", "w")
+
+for pair in pairs:
+    rock1, rock2 = pair
+    request = prepare_request(rock1, rock2)
+    batch_file.write(json.dumps(request) + "\n")
+    line_count += 1
+
+    if line_count >= 100:
+        batch_file.close()
+        file_index += 1
+        line_count = 0
+        batch_file = open(f"{output_folder}/batch_requests_{file_index}.jsonl", "w")
+
+batch_file.close()
