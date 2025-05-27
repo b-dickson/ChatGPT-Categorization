@@ -22,8 +22,8 @@ SYSTEM_PROMPT = (
     "You are assisting in a study in which you are shown pairs of rocks and "
     "rate how visually similar they are on a scale from 1 to 9, with 1 being most dissimilar, "
     "5 being moderately similar, and 9 being most similar. "
-    "You are shown examples of highly similar, moderately similar, and highly dissimilar pairs. "
-    "You use these examples to anchor your judgments. "
+    # "You are shown examples of highly similar, moderately similar, and highly dissimilar pairs. "
+    # "You use these examples to anchor your judgments. "
     # ChatGPT is biased to give low similarities. Adding this instruction helps.
     "You use the full range of the scale and only respond with a 1 or 2 when the pair is extremely dissimilar. "
     "You only respond with a single number from 1 to 9, without explaining your reasoning."
@@ -73,11 +73,11 @@ def prepare_request(rock1, rock2):
             "model": "gpt-4.1",
             "messages": [
                 {"role": "system", "content": SYSTEM_PROMPT},
-                create_messages(SIMILAR_EXAMPLE_PROMPT, (SIMILAR_ROCK1, SIMILAR_ROCK2)),
-                create_messages(MEDIUM_EXAMPLE_PROMPT, (MEDIUM_ROCK1, MEDIUM_ROCK2)),
-                create_messages(
-                    DISSIMILAR_EXAMPLE_PROMPT, (DISSIMILAR_ROCK1, DISSIMILAR_ROCK2)
-                ),
+                # create_messages(SIMILAR_EXAMPLE_PROMPT, (SIMILAR_ROCK1, SIMILAR_ROCK2)),
+                # create_messages(MEDIUM_EXAMPLE_PROMPT, (MEDIUM_ROCK1, MEDIUM_ROCK2)),
+                # create_messages(
+                #     DISSIMILAR_EXAMPLE_PROMPT, (DISSIMILAR_ROCK1, DISSIMILAR_ROCK2)
+                # ),
                 create_messages(QUESTION_PROMPT, (rock1, rock2)),
             ],
             "logprobs": True,
@@ -94,6 +94,7 @@ pairs = [comb for comb in combinations(image_names, 2)]
 
 file_index = 1
 line_count = 0
+batch_size = 100
 batch_file = open(f"{output_folder}/batch_requests_{file_index}.jsonl", "w")
 
 for pair in pairs:
