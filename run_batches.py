@@ -33,8 +33,7 @@ for batch_file in batch_files:
         endpoint="/v1/chat/completions",
         completion_window="24h",
     )
-    print(f"Started batch {batch.id} from {batch_file}")
-    batch_ids.append(batch.id)
+    print(f"Started batch {batch.id}")
 
     while batch.status not in TERMINAL:
         time.sleep(90)
@@ -42,7 +41,7 @@ for batch_file in batch_files:
         print(f"{batch.id} → {batch.status}")
         if batch.status == "failed":
             for error in batch.errors.data:
-                print(f"Error: {error}")
+                print(f"Error: {error['message']}")
 
     print(f"{batch.id} finished with status {batch.status}")
     time.sleep(90)  # Give extra time to clear queue
