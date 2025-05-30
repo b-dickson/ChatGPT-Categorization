@@ -155,8 +155,6 @@ if __name__ == "__main__":
                 json.dumps(
                     {
                         "index": i,
-                        "Rock1": rock1,
-                        "Rock2": rock2,
                         "response": response.model_dump()
                         if hasattr(response, "model_dump")
                         else str(response),
@@ -170,6 +168,8 @@ if __name__ == "__main__":
                 "index",
                 "Rock1",
                 "Rock2",
+                "Rock1 Index",
+                "Rock2 Index",
                 "Human Rating",
                 "ChatGPT Rating",
             ]
@@ -181,6 +181,8 @@ if __name__ == "__main__":
                     "index": i,
                     "Rock1": rock1,
                     "Rock2": rock2,
+                    "Rock1 Index": rock_filenames.index(rock1),
+                    "Rock2 Index": rock_filenames.index(rock2),
                     "Human Rating": human,
                     "ChatGPT Rating": chatgpt,
                 }
