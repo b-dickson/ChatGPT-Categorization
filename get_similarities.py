@@ -4,6 +4,7 @@ import csv
 import json
 import os
 from itertools import combinations
+from datetime import datetime
 
 import numpy as np
 import openai
@@ -17,18 +18,38 @@ from tenacity import (
 IMAGE_FOLDER = "data\\360 Rocks"
 API_KEY = ""
 HUMAN_DATA = "data\\rocks_360_similarities.csv"
-SYSTEM_PROMPT = (
+
+
+NUMBER_MAP = "number_map.json"
+OUTPUT_FOLDER = "output"
+os.makedirs(OUTPUT_FOLDER, exist_ok=True)
+
+RAW_RESPONSES = os.path.join(OUTPUT_FOLDER, "chatgpt_raw_responses_360.jsonl")
+SIMILARITY_OUTPUT = os.path.join(OUTPUT_FOLDER, "chatgpt_similarity_360.csv")
+
+BASE_PROMPT = (
     "You are assisting in a study in which you are shown pairs of rocks and "
     "rate how visually similar they are on a scale from 1 to 9, with 1 being most dissimilar, "
     "5 being moderately similar, and 9 being most similar. "
-    "You use the full range of the scale and only respond with a 1 or 2 when the pair is extremely dissimilar. "
-    "You only respond with a single number from 1 to 9, without explaining your reasoning."
+    "You only respond with a single number from 1 to 9, without explaining your reasoning. "
 )
+
+SCALE_PROMPT = BASE_PROMPT + (
+    "You use the full range of the scale. "
+    "You only respond with 1 or 2 when the pair is extremely dissimilar. "
+    "You only respond with 8 or 9 when the pair is extremely similar. "
+)
+
+SIMILAR_ROCK1 = "I_Obsidian_09"
+SIMILAR_ROCK2 = "M_Anthracite_12"
+
+DISSIMILAR_ROCK1 = "S_Rock Salt_12"
+DISSIMILAR_ROCK2 = "S_Sandstone_12"
+
+MEDIUM_ROCK1 = "I_Andesite_06"
+MEDIUM_ROCK2 = "I_Peridotite_11"
+
 QUESTION_PROMPT = "From 1-9, how visually similar are these two rocks?"
-NUMBER_MAP = "number_map.json"
-SEED = 123
-RAW_RESPONSES = "chatgpt_raw_responses_360.jsonl"
-SIMILARITY_OUTPUT = "chatgpt_similarity_360.csv"
 
 
 def encode_image(image, folder=IMAGE_FOLDER):
@@ -37,10 +58,10 @@ def encode_image(image, folder=IMAGE_FOLDER):
         return base64.b64encode(image_file.read()).decode("utf-8")
 
 
-def create_messages(prompt, rocks, folder=IMAGE_FOLDER):
+def create_messages(rocks, folder=IMAGE_FOLDER):
     messages = {
         "role": "user",
-        "content": [{"type": "text", "text": prompt}]
+        "content": [{"type": "text", "text": QUESTION_PROMPT}]
         + [
             {
                 "type": "image_url",
@@ -59,16 +80,26 @@ def completion_with_backoff(**kwargs):
     return client.chat.completions.create(**kwargs)
 
 
-def get_responses(rock1, rock2):
+def get_responses(rock1, rock2, scale, anchors):
+    messages = [
+        {"role": "system", "content": SCALE_PROMPT if scale else BASE_PROMPT},
+    ]
+    if anchors:
+        messages += [
+            create_messages((SIMILAR_ROCK1, SIMILAR_ROCK2)),
+            {"role": "assistant", "content": "9"},
+            create_messages((DISSIMILAR_ROCK1, DISSIMILAR_ROCK2)),
+            {"role": "assistant", "content": "1"},
+            create_messages((MEDIUM_ROCK1, MEDIUM_ROCK2)),
+            {"role": "assistant", "content": "5"},
+        ]
+    messages.append(create_messages((rock1, rock2)))
     response = completion_with_backoff(
         model="gpt-4o",
-        messages=[
-            {"role": "system", "content": SYSTEM_PROMPT},
-            create_messages(QUESTION_PROMPT, (rock1, rock2)),
-        ],
+        messages=messages,
         logprobs=True,
         top_logprobs=20,
-        seed=SEED,
+        seed=args.seed,
         max_tokens=1,
     )
     return response
@@ -103,12 +134,48 @@ if __name__ == "__main__":
         help="Index of the pair to start at (default: 0)",
     )
     parser.add_argument(
-        "--debug",
-        action=argparse.BooleanOptionalAction,
-        default=True,
-        help="If true, only process 5 pairs (default: True)",
+        "--n_trials",
+        type=int,
+        default=5,
+        help="Number of pairs to process (default: 5)",
+    )
+    parser.add_argument(
+        "--shuffle",
+        action="store_true",
+        default=False,
+        help="Shuffle the pairs before processing (default: False)",
+    )
+    parser.add_argument(
+        "--seed",
+        type=int,
+        default=123,
+        help="Random seed for shuffling and model (default: 123)",
+    )
+    parser.add_argument(
+        "--scale",
+        action="store_true",
+        default=False,
+        help="Use the full scale prompt (default: False)",
+    )
+    parser.add_argument(
+        "--anchors",
+        action="store_true",
+        default=False,
+        help="Include anchor examples in the prompt (default: False)",
     )
     args = parser.parse_args()
+
+    run_timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
+    run_folder = os.path.join(OUTPUT_FOLDER, run_timestamp)
+    os.makedirs(run_folder, exist_ok=True)
+
+    metadata = {"timestamp": run_timestamp, "args": vars(args)}
+    metadata_path = os.path.join(run_folder, "metadata.json")
+    with open(metadata_path, "w", encoding="utf-8") as metafile:
+        json.dump(metadata, metafile, indent=2)
+
+    RAW_RESPONSES = os.path.join(run_folder, "raw_responses.jsonl")
+    SIMILARITY_OUTPUT = os.path.join(run_folder, "similarities.csv")
 
     human_data = pd.read_csv(HUMAN_DATA, index_col=0)
 
@@ -116,12 +183,10 @@ if __name__ == "__main__":
         api_key=API_KEY,
     )
 
-    # Get sorted list of file names (without extension) from the directory
     rock_filenames = sorted(
         [os.path.splitext(f)[0] for f in os.listdir(IMAGE_FOLDER) if f.endswith(".jpg")]
     )
 
-    # Set the DataFrame's index and columns to these filenames
     human_data.index = rock_filenames
     human_data.columns = rock_filenames
 
@@ -129,12 +194,15 @@ if __name__ == "__main__":
         number_map = json.load(f)
 
     pairs = [comb for comb in combinations(human_data.columns, 2)]
-    # Determine how many pairs to process based on debug flag
-    if args.debug:
-        end_idx = args.start + 5
-    else:
-        end_idx = len(pairs)
-    for i, pair in enumerate(pairs[args.start : end_idx], start=args.start):
+    if args.shuffle:
+        import random
+
+        random.seed(args.seed)
+        random.shuffle(pairs)
+
+    end_idx = min(args.start + args.n_trials, len(pairs))
+    pairs = pairs[args.start : end_idx]
+    for i, pair in enumerate(pairs, start=args.start):
         rock1, rock2 = pair
         print(
             f"Processing pair {i + 1}/{len(pairs)}: {rock1} and {rock2}",
@@ -143,7 +211,9 @@ if __name__ == "__main__":
         )
         human = human_data[rock1][rock2]
         try:
-            response = get_responses(rock1, rock2)
+            response = get_responses(
+                rock1, rock2, scale=args.scale, anchors=args.anchors
+            )
         except Exception as e:
             print(f"Error processing pair {rock1} and {rock2}: {e}")
             break
@@ -187,3 +257,10 @@ if __name__ == "__main__":
                     "ChatGPT Rating": chatgpt,
                 }
             )
+
+    completion_timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
+    with open(metadata_path, "r", encoding="utf-8") as metafile:
+        metadata = json.load(metafile)
+    metadata["completion_timestamp"] = completion_timestamp
+    with open(metadata_path, "w", encoding="utf-8") as metafile:
+        json.dump(metadata, metafile, indent=2)
