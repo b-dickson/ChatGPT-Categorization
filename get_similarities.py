@@ -15,17 +15,14 @@ from tenacity import (
     wait_random_exponential,
 )
 
-IMAGE_FOLDER = "data\\360 Rocks"
+IMAGE_FOLDER = "data/360 Rocks"
 API_KEY = ""
-HUMAN_DATA = "data\\rocks_360_similarities.csv"
-
+ROCKS_30_DATA = "data/30_rocks_similarities.csv"
+ROCKS_360_DATA = "data/rocks_360_similarities.csv"
 
 NUMBER_MAP = "number_map.json"
 OUTPUT_FOLDER = "output"
 os.makedirs(OUTPUT_FOLDER, exist_ok=True)
-
-RAW_RESPONSES = os.path.join(OUTPUT_FOLDER, "chatgpt_raw_responses_360.jsonl")
-SIMILARITY_OUTPUT = os.path.join(OUTPUT_FOLDER, "chatgpt_similarity_360.csv")
 
 BASE_PROMPT = (
     "You are assisting in a study in which you are shown pairs of rocks and "
@@ -34,9 +31,12 @@ BASE_PROMPT = (
     "You only respond with a single number from 1 to 9, without explaining your reasoning. "
 )
 
-SCALE_PROMPT = BASE_PROMPT + (
+DISCOURAGE_LOW_PROMPT = BASE_PROMPT + (
     "You use the full range of the scale. "
     "You only respond with 1 or 2 when the pair is extremely dissimilar. "
+)
+
+DISCOURAGE_EXTREME_PROMPT = DISCOURAGE_LOW_PROMPT + (
     "You only respond with 8 or 9 when the pair is extremely similar. "
 )
 
@@ -76,13 +76,21 @@ def create_messages(rocks, folder=IMAGE_FOLDER):
 
 
 @retry(wait=wait_random_exponential(min=1, max=60), stop=stop_after_attempt(10))
-def completion_with_backoff(**kwargs):
+def completion_with_backoff(client, **kwargs):
     return client.chat.completions.create(**kwargs)
 
 
-def get_responses(rock1, rock2, scale, anchors):
+def get_responses(client, rock1, rock2, prompt_type, anchors):
+    if prompt_type == "discourage_low":
+        prompt = DISCOURAGE_LOW_PROMPT
+    elif prompt_type == "discourage_extreme":
+        prompt = DISCOURAGE_EXTREME_PROMPT
+    elif prompt_type == "base":
+        prompt = BASE_PROMPT
+    else:
+        raise ValueError(f"Unknown prompt type: {prompt_type}")
     messages = [
-        {"role": "system", "content": SCALE_PROMPT if scale else BASE_PROMPT},
+        {"role": "system", "content": prompt},
     ]
     if anchors:
         messages += [
@@ -95,7 +103,8 @@ def get_responses(rock1, rock2, scale, anchors):
         ]
     messages.append(create_messages((rock1, rock2)))
     response = completion_with_backoff(
-        model="gpt-4o",
+        client,
+        model=args.model,
         messages=messages,
         logprobs=True,
         top_logprobs=20,
@@ -105,7 +114,7 @@ def get_responses(rock1, rock2, scale, anchors):
     return response
 
 
-def get_average_rating(logprobs):
+def get_average_rating(logprobs, number_map):
     # We get a weighted average using the logprobs. The logprobs are actually nondeterministic
     # even with a fixed random seed, so different runs might have slightly different results.
     ratings = np.array([i + 1 for i in range(9)])
@@ -116,57 +125,19 @@ def get_average_rating(logprobs):
         try:
             i = int(i) - 1
             weights[i] += np.exp(lp.logprob)
-        except:
+        except Exception:
             continue
     try:
         av = np.average(ratings, weights=weights)
-    except:
+    except Exception:
         av = 0.0
     return av
 
 
-if __name__ == "__main__":
-    parser = argparse.ArgumentParser(description="Get rock similarity ratings.")
-    parser.add_argument(
-        "--start",
-        type=int,
-        default=0,
-        help="Index of the pair to start at (default: 0)",
-    )
-    parser.add_argument(
-        "--n_trials",
-        type=int,
-        default=5,
-        help="Number of pairs to process (default: 5)",
-    )
-    parser.add_argument(
-        "--shuffle",
-        action="store_true",
-        default=False,
-        help="Shuffle the pairs before processing (default: False)",
-    )
-    parser.add_argument(
-        "--seed",
-        type=int,
-        default=123,
-        help="Random seed for shuffling and model (default: 123)",
-    )
-    parser.add_argument(
-        "--scale",
-        action="store_true",
-        default=False,
-        help="Use the full scale prompt (default: False)",
-    )
-    parser.add_argument(
-        "--anchors",
-        action="store_true",
-        default=False,
-        help="Include anchor examples in the prompt (default: False)",
-    )
-    args = parser.parse_args()
-
+def main(args):
     run_timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
-    run_folder = os.path.join(OUTPUT_FOLDER, run_timestamp)
+    run_folder_name = args.run_name if args.run_name else run_timestamp
+    run_folder = os.path.join(OUTPUT_FOLDER, run_folder_name)
     os.makedirs(run_folder, exist_ok=True)
 
     metadata = {"timestamp": run_timestamp, "args": vars(args)}
@@ -174,10 +145,16 @@ if __name__ == "__main__":
     with open(metadata_path, "w", encoding="utf-8") as metafile:
         json.dump(metadata, metafile, indent=2)
 
-    RAW_RESPONSES = os.path.join(run_folder, "raw_responses.jsonl")
-    SIMILARITY_OUTPUT = os.path.join(run_folder, "similarities.csv")
+    raw_responses = os.path.join(run_folder, "raw_responses.jsonl")
+    similarity_output = os.path.join(run_folder, "similarities.csv")
 
-    human_data = pd.read_csv(HUMAN_DATA, index_col=0)
+    # Select human data file based on CLI argument
+    if args.human_data == "30":
+        human_data = ROCKS_30_DATA
+    else:
+        human_data = ROCKS_360_DATA
+
+    human_data = pd.read_csv(human_data, index_col=0)
 
     client = openai.OpenAI(
         api_key=API_KEY,
@@ -187,8 +164,9 @@ if __name__ == "__main__":
         [os.path.splitext(f)[0] for f in os.listdir(IMAGE_FOLDER) if f.endswith(".jpg")]
     )
 
-    human_data.index = rock_filenames
-    human_data.columns = rock_filenames
+    if args.human_data == "360":
+        human_data.index = rock_filenames
+        human_data.columns = rock_filenames
 
     with open(NUMBER_MAP, "r", encoding="utf-8") as f:
         number_map = json.load(f)
@@ -205,22 +183,22 @@ if __name__ == "__main__":
     for i, pair in enumerate(pairs, start=args.start):
         rock1, rock2 = pair
         print(
-            f"Processing pair {i + 1}/{len(pairs)}: {rock1} and {rock2}",
+            f"\033[KProcessing pair {i + 1}/{len(pairs)}: {rock1} and {rock2}",
             end="\r",
             flush=True,
         )
         human = human_data[rock1][rock2]
         try:
             response = get_responses(
-                rock1, rock2, scale=args.scale, anchors=args.anchors
+                client, rock1, rock2, prompt_type=args.prompt_type, anchors=args.anchors
             )
         except Exception as e:
             print(f"Error processing pair {rock1} and {rock2}: {e}")
             break
         logprobs = response.choices[0].logprobs.content[0].top_logprobs
-        chatgpt = get_average_rating(logprobs)
+        chatgpt = get_average_rating(logprobs, number_map)
 
-        with open(RAW_RESPONSES, mode="a", encoding="utf-8") as rawfile:
+        with open(raw_responses, mode="a", encoding="utf-8") as rawfile:
             rawfile.write(
                 json.dumps(
                     {
@@ -233,7 +211,7 @@ if __name__ == "__main__":
                 + "\n"
             )
 
-        with open(SIMILARITY_OUTPUT, mode="a", newline="", encoding="utf-8") as csvfile:
+        with open(similarity_output, mode="a", newline="", encoding="utf-8") as csvfile:
             fieldnames = [
                 "index",
                 "Rock1",
@@ -264,3 +242,66 @@ if __name__ == "__main__":
     metadata["completion_timestamp"] = completion_timestamp
     with open(metadata_path, "w", encoding="utf-8") as metafile:
         json.dump(metadata, metafile, indent=2)
+
+
+if __name__ == "__main__":
+    parser = argparse.ArgumentParser(description="Get rock similarity ratings.")
+    parser.add_argument(
+        "--start",
+        type=int,
+        default=0,
+        help="Index of the pair to start at (default: 0)",
+    )
+    parser.add_argument(
+        "--n_trials",
+        type=int,
+        default=5,
+        help="Number of pairs to process (default: 5)",
+    )
+    parser.add_argument(
+        "--shuffle",
+        action="store_true",
+        default=False,
+        help="Shuffle the pairs before processing (default: False)",
+    )
+    parser.add_argument(
+        "--seed",
+        type=int,
+        default=123,
+        help="Random seed for shuffling and model (default: 123)",
+    )
+    parser.add_argument(
+        "--prompt_type",
+        type=str,
+        choices=["base", "discourage_low", "discourage_extreme"],
+        default="base",
+        help="Discourage use of low similarity ratings except for extremely dissimilar pairs.",
+    )
+    parser.add_argument(
+        "--anchors",
+        action="store_true",
+        default=False,
+        help="Include anchor examples in the prompt (default: False)",
+    )
+    parser.add_argument(
+        "--model",
+        type=str,
+        default="gpt-4o",
+        help="OpenAI GPT model to use (default: gpt-4o)",
+    )
+    parser.add_argument(
+        "--run_name",
+        type=str,
+        default=None,
+        help="Optional name for this run; used as output subdirectory name.",
+    )
+    parser.add_argument(
+        "--human_data",
+        type=str,
+        choices=["30", "360"],
+        default="30",
+        help="Which human similarity data to use: '30' for 30-rocks, '360' for 360-rocks (default: 30)",
+    )
+    args = parser.parse_args()
+
+    main(args)
