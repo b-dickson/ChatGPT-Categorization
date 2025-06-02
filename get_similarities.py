@@ -138,7 +138,7 @@ def main(args):
     run_timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
     run_folder_name = args.run_name if args.run_name else run_timestamp
     run_folder = os.path.join(OUTPUT_FOLDER, run_folder_name)
-    os.makedirs(run_folder, exist_ok=True)
+    os.makedirs(run_folder)
 
     metadata = {"timestamp": run_timestamp, "args": vars(args)}
     metadata_path = os.path.join(run_folder, "metadata.json")
