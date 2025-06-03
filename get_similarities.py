@@ -31,6 +31,13 @@ BASE_PROMPT = (
     "You only respond with a single number from 1 to 9, without explaining your reasoning. "
 )
 
+REVERSE_PROMPT = (
+    "You are assisting in a study in which you are shown pairs of rocks and "
+    "rate how visually similar they are on a scale from 1 to 9, with 1 being most similar, "
+    "5 being moderately similar, and 9 being most dissimilar. "
+    "You only respond with a single number from 1 to 9, without explaining your reasoning. "
+)
+
 DISCOURAGE_LOW_PROMPT = BASE_PROMPT + (
     "You use the full range of the scale. "
     "You only respond with 1 or 2 when the pair is extremely dissimilar. "
@@ -87,6 +94,8 @@ def get_responses(client, rock1, rock2, prompt_type, anchors):
         prompt = DISCOURAGE_EXTREME_PROMPT
     elif prompt_type == "base":
         prompt = BASE_PROMPT
+    elif prompt_type == "reverse":
+        prompt = REVERSE_PROMPT
     else:
         raise ValueError(f"Unknown prompt type: {prompt_type}")
     messages = [
@@ -95,9 +104,9 @@ def get_responses(client, rock1, rock2, prompt_type, anchors):
     if anchors:
         messages += [
             create_messages((SIMILAR_ROCK1, SIMILAR_ROCK2)),
-            {"role": "assistant", "content": "9"},
+            {"role": "assistant", "content": "9" if prompt_type != "reverse" else "1"},
             create_messages((DISSIMILAR_ROCK1, DISSIMILAR_ROCK2)),
-            {"role": "assistant", "content": "1"},
+            {"role": "assistant", "content": "1" if prompt_type != "reverse" else "9"},
             create_messages((MEDIUM_ROCK1, MEDIUM_ROCK2)),
             {"role": "assistant", "content": "5"},
         ]
@@ -273,7 +282,7 @@ if __name__ == "__main__":
     parser.add_argument(
         "--prompt_type",
         type=str,
-        choices=["base", "discourage_low", "discourage_extreme"],
+        choices=["base", "discourage_low", "discourage_extreme", "reverse"],
         default="base",
         help="Discourage use of low similarity ratings except for extremely dissimilar pairs.",
     )
