@@ -16,7 +16,10 @@ from tenacity import (
 )
 
 IMAGE_FOLDER = "data/360 Rocks"
-API_KEY = ""
+
+with open("openai_key.txt", "r", encoding="utf-8") as keyfile:
+    API_KEY = keyfile.read().strip()
+
 ROCKS_30_DATA = "data/30_rocks_similarities.csv"
 ROCKS_360_DATA = "data/rocks_360_similarities.csv"
 
@@ -29,6 +32,13 @@ BASE_PROMPT = (
     "rate how visually similar they are on a scale from 1 to 9, with 1 being most dissimilar, "
     "5 being moderately similar, and 9 being most similar. "
     "You only respond with a single number from 1 to 9, without explaining your reasoning. "
+)
+
+ELABORATE_PROMPT = BASE_PROMPT + (
+    "A rating of 1 means the rocks are extremely dissimilar—they differ in almost every way (e.g., shape, texture, color, and structure). "
+    "A rating of 5 means the rocks are moderately similar—they share some key features but have clear differences. "
+    "A rating of 9 means the rocks are extremely similar--they are nearly identical in several aspects of their visual appearance. "
+    "Most ratings should fall somewhere in the middle of the scale. You should only use a 1 or 2 when the images are truly different in every meaningful visual way."
 )
 
 REVERSE_PROMPT = (
@@ -96,6 +106,8 @@ def get_responses(client, rock1, rock2, prompt_type, anchors):
         prompt = BASE_PROMPT
     elif prompt_type == "reverse":
         prompt = REVERSE_PROMPT
+    elif prompt_type == "elaborate":
+        prompt = ELABORATE_PROMPT
     else:
         raise ValueError(f"Unknown prompt type: {prompt_type}")
     messages = [
@@ -282,7 +294,13 @@ if __name__ == "__main__":
     parser.add_argument(
         "--prompt_type",
         type=str,
-        choices=["base", "discourage_low", "discourage_extreme", "reverse"],
+        choices=[
+            "base",
+            "discourage_low",
+            "discourage_extreme",
+            "reverse",
+            "elaborate",
+        ],
         default="base",
         help="Discourage use of low similarity ratings except for extremely dissimilar pairs.",
     )
