@@ -17,7 +17,7 @@ from tenacity import (
 
 IMAGE_FOLDER = "data/360 Rocks"
 
-with open("openai_key.txt", "r", encoding="utf-8") as keyfile:
+with open("sahaj_key.txt", "r", encoding="utf-8") as keyfile:
     API_KEY = keyfile.read().strip()
 
 ROCKS_30_DATA = "data/30_rocks_similarities.csv"
@@ -32,6 +32,15 @@ BASE_PROMPT = (
     "rate how visually similar they are on a scale from 1 to 9, with 1 being most dissimilar, "
     "5 being moderately similar, and 9 being most similar. "
     "You only respond with a single number from 1 to 9, without explaining your reasoning. "
+)
+
+LONG_PROMPT = BASE_PROMPT + (
+    "You only consider the visual appearance of the rocks, not their geological properties or origins. "
+    "You consider several visual aspects of the rocks, including their shape, texture, color, and structure. "
+    "It is possible for rocks to differ in some aspects while still being highly similar overall. "
+    "For example, two rocks may have different shapes and textures, but still be highly similar because they are both dark and shiny. "
+    "You use the full range of the 1-9 scale and err on the side of using the middle of the scale (4 or 5) when you are unsure. "
+    "You only use a 1 or 2 when the images are truly different in every meaningful visual way. "
 )
 
 ELABORATE_PROMPT = BASE_PROMPT + (
@@ -108,6 +117,8 @@ def get_responses(client, rock1, rock2, prompt_type, anchors):
         prompt = REVERSE_PROMPT
     elif prompt_type == "elaborate":
         prompt = ELABORATE_PROMPT
+    elif prompt_type == "long":
+        prompt = LONG_PROMPT
     else:
         raise ValueError(f"Unknown prompt type: {prompt_type}")
     messages = [
@@ -300,6 +311,7 @@ if __name__ == "__main__":
             "discourage_extreme",
             "reverse",
             "elaborate",
+            "long",
         ],
         default="base",
         help="Discourage use of low similarity ratings except for extremely dissimilar pairs.",
