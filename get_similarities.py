@@ -54,6 +54,21 @@ DIMENSIONS_PROMPT = BASE_PROMPT + (
     "Most ratings should fall somewhere in the middle of the scale. "
 )
 
+SHORT_DIMENSIONS_PROMPT = BASE_PROMPT + (
+    "Here are some dimensions to consider when rating the rocks: "
+    "lightness/darkness of color, "
+    "average grain size, "
+    "smoothness/roughness of texture, "
+    "shininess/dullness of surface, "
+    "and organization of grains (e.g., uniform, layered, haphazard), "
+    "chromaticity (i.e., whether the rock is monochromatic, warm-colored, or cool-colored), "
+    "These are not the only dimensions to consider, but they are some of the most important. "
+    "You use the full range of the 1-9 scale and err on the side of using the middle of the scale (4 or 5) when you are unsure. "
+    "Rocks that are very similar in several of these dimensions should be rated as highly similar (8 or 9). "
+    "You only use a 1 or 2 when the images are truly different in every meaningful visual way. "
+    "Most ratings should fall somewhere in the middle of the scale. "
+)
+
 LONG_PROMPT = BASE_PROMPT + (
     "You only consider the visual appearance of the rocks, not their geological properties or origins. "
     "You consider several visual aspects of the rocks, including their shape, texture, color, and structure. "
@@ -141,6 +156,8 @@ def get_responses(client, rock1, rock2, prompt_type, anchors):
         prompt = LONG_PROMPT
     elif prompt_type == "dimensions":
         prompt = DIMENSIONS_PROMPT
+    elif prompt_type == "short_dimensions":
+        prompt = SHORT_DIMENSIONS_PROMPT
     else:
         raise ValueError(f"Unknown prompt type: {prompt_type}")
     messages = [
@@ -335,6 +352,7 @@ if __name__ == "__main__":
             "elaborate",
             "long",
             "dimensions",
+            "short_dimensions",
         ],
         default="base",
         help="Discourage use of low similarity ratings except for extremely dissimilar pairs.",
