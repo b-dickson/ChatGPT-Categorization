@@ -34,6 +34,13 @@ BASE_PROMPT = (
     "You only respond with a single number from 1 to 9, without explaining your reasoning. "
 )
 
+ENCOURAGE_MIDDLE_PROMPT = BASE_PROMPT + (
+    "You use the full range of the 1-9 scale and err on the side of using the middle of the scale (4 or 5) when you are unsure. "
+    "Rocks that are very similar in several of these dimensions should be rated as highly similar (8 or 9). "
+    "You only use a 1 or 2 when the images are truly different in every meaningful visual way. "
+    "Most ratings should fall somewhere in the middle of the scale. "
+)
+
 DIMENSIONS_PROMPT = BASE_PROMPT + (
     "Here are some dimensions to consider when rating the rocks: "
     "lightness/darkness of color, "
@@ -158,6 +165,8 @@ def get_responses(client, rock1, rock2, prompt_type, anchors):
         prompt = DIMENSIONS_PROMPT
     elif prompt_type == "short_dimensions":
         prompt = SHORT_DIMENSIONS_PROMPT
+    elif prompt_type == "encourage_middle":
+        prompt = ENCOURAGE_MIDDLE_PROMPT
     else:
         raise ValueError(f"Unknown prompt type: {prompt_type}")
     messages = [
@@ -353,6 +362,7 @@ if __name__ == "__main__":
             "long",
             "dimensions",
             "short_dimensions",
+            "encourage_middle",
         ],
         default="base",
         help="Discourage use of low similarity ratings except for extremely dissimilar pairs.",
