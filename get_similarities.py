@@ -17,7 +17,7 @@ from tenacity import (
 
 IMAGE_FOLDER = "data/360 Rocks"
 
-with open("sahaj_key.txt", "r", encoding="utf-8") as keyfile:
+with open("openai_key.txt", "r", encoding="utf-8") as keyfile:
     API_KEY = keyfile.read().strip()
 
 ROCKS_30_DATA = "data/30_rocks_similarities.csv"
@@ -32,6 +32,26 @@ BASE_PROMPT = (
     "rate how visually similar they are on a scale from 1 to 9, with 1 being most dissimilar, "
     "5 being moderately similar, and 9 being most similar. "
     "You only respond with a single number from 1 to 9, without explaining your reasoning. "
+)
+
+DIMENSIONS_PROMPT = BASE_PROMPT + (
+    "Here are some dimensions to consider when rating the rocks: "
+    "lightness/darkness of color, "
+    "average grain size, "
+    "smoothness/roughness of texture, "
+    "shininess/dullness of surface, "
+    "organization of grains (e.g., uniform, layered, haphazard), "
+    "chromaticity (i.e., whether the rock is monochromatic, warm-colored, or cool-colored), "
+    "hue (i.e., whether the rock is red, blue, green, etc.), "
+    "volume (i.e., whether the rock is flat or round/boxy), "
+    "porphyritic texture (i.e., whether the rock has small fragments or pebbles that are glued into a separate background texture), "
+    "pegmatitic structure (i.e., whether the rock has very large crystals that are embedded in a separate background), "
+    "and conchoidal fracture (i.e., whether the rock has a smooth, curved surfaces similar to the inside of a seashell). "
+    "These are not the only dimensions to consider, but they are some of the most important. "
+    "You use the full range of the 1-9 scale and err on the side of using the middle of the scale (4 or 5) when you are unsure. "
+    "Rocks that are very similar in several of these dimensions should be rated as highly similar (8 or 9). "
+    "You only use a 1 or 2 when the images are truly different in every meaningful visual way. "
+    "Most ratings should fall somewhere in the middle of the scale. "
 )
 
 LONG_PROMPT = BASE_PROMPT + (
@@ -119,6 +139,8 @@ def get_responses(client, rock1, rock2, prompt_type, anchors):
         prompt = ELABORATE_PROMPT
     elif prompt_type == "long":
         prompt = LONG_PROMPT
+    elif prompt_type == "dimensions":
+        prompt = DIMENSIONS_PROMPT
     else:
         raise ValueError(f"Unknown prompt type: {prompt_type}")
     messages = [
@@ -312,6 +334,7 @@ if __name__ == "__main__":
             "reverse",
             "elaborate",
             "long",
+            "dimensions",
         ],
         default="base",
         help="Discourage use of low similarity ratings except for extremely dissimilar pairs.",
