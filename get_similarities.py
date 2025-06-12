@@ -15,6 +15,8 @@ from tenacity import (
     wait_random_exponential,
     retry_if_exception_type,
 )
+from PIL import Image
+import io
 
 IMAGE_FOLDER = "data/360 Rocks"
 
@@ -123,8 +125,11 @@ QUESTION_PROMPT = "From 1-9, how visually similar are these two rocks?"
 
 def encode_image(image, folder=IMAGE_FOLDER):
     image_path = os.path.join(folder, f"{image}.jpg")
-    with open(image_path, "rb") as image_file:
-        return base64.b64encode(image_file.read()).decode("utf-8")
+    with Image.open(image_path) as img:
+        buf = io.BytesIO()
+        img.save(buf, format="JPEG")
+        encoded = base64.b64encode(buf.getvalue()).decode("utf-8")
+    return encoded
 
 
 def create_messages(rocks, folder=IMAGE_FOLDER):
