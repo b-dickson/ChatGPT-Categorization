@@ -36,8 +36,8 @@ BASE_PROMPT = (
 
 ENCOURAGE_MIDDLE_PROMPT = BASE_PROMPT + (
     "You use the full range of the 1-9 scale and err on the side of using the middle of the scale (4 or 5) when you are unsure. "
-    "Rocks that are very similar in several of these dimensions should be rated as highly similar (8 or 9). "
-    "You only use a 1 or 2 when the images are truly different in every meaningful visual way. "
+    "Rocks that are very similar in almost all respects should be rated as highly similar (8 or 9). "
+    "You only use a 1 or 2 when the rocks are truly different in every meaningful visual way. "
     "Most ratings should fall somewhere in the middle of the scale. "
 )
 
