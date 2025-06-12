@@ -13,6 +13,7 @@ from tenacity import (
     retry,
     stop_after_attempt,
     wait_random_exponential,
+    retry_if_exception_type,
 )
 
 IMAGE_FOLDER = "data/360 Rocks"
@@ -143,7 +144,11 @@ def create_messages(rocks, folder=IMAGE_FOLDER):
     return messages
 
 
-@retry(wait=wait_random_exponential(min=1, max=60), stop=stop_after_attempt(10))
+@retry(
+    wait=wait_random_exponential(min=1, max=60),
+    stop=stop_after_attempt(10),
+    retry=retry_if_exception_type(openai.RateLimitError),
+)
 def completion_with_backoff(client, **kwargs):
     return client.chat.completions.create(**kwargs)
 
