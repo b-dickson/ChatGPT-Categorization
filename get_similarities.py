@@ -196,10 +196,10 @@ def get_responses(client, rock1, rock2, prompt_type, anchors):
         client,
         model=args.model,
         messages=messages,
-        logprobs=True,
-        top_logprobs=20,
+        logprobs=args.model != "o3",
+        top_logprobs=20 if args.model != "o3" else None,
         seed=args.seed,
-        max_tokens=1,
+        max_completion_tokens=1 if args.model != "o3" else None,
     )
     return response
 
@@ -285,8 +285,12 @@ def main(args):
         except Exception as e:
             print(f"Error processing pair {rock1} and {rock2}: {e}")
             break
-        logprobs = response.choices[0].logprobs.content[0].top_logprobs
-        chatgpt = get_average_rating(logprobs, number_map)
+        if args.model == "o3":
+            token = response.choices[0].message.content
+            chatgpt = number_map.get(token, -1)
+        else:
+            logprobs = response.choices[0].logprobs.content[0].top_logprobs
+            chatgpt = get_average_rating(logprobs, number_map)
 
         with open(raw_responses, mode="a", encoding="utf-8") as rawfile:
             rawfile.write(
