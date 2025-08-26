@@ -1,0 +1,15 @@
+{
+  "timestamp": "20250825_231327",
+  "args": {
+    "start": 0,
+    "n_trials": 435,
+    "shuffle": false,
+    "seed": 123,
+    "prompt_type": "base",
+    "anchors": false,
+    "model": "llava-llama3:8b-v1.1-fp16",
+    "run_name": "llava-llama3_8b-v1_1-fp16_base",
+    "human_data": "30"
+  },
+  "completion_timestamp": "20250825_231503"
+}

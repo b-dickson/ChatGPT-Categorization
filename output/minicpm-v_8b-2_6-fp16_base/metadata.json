@@ -1,0 +1,15 @@
+{
+  "timestamp": "20250825_230357",
+  "args": {
+    "start": 0,
+    "n_trials": 435,
+    "shuffle": false,
+    "seed": 123,
+    "prompt_type": "base",
+    "anchors": false,
+    "model": "minicpm-v:8b-2.6-fp16",
+    "run_name": "minicpm-v_8b-2_6-fp16_base",
+    "human_data": "30"
+  },
+  "completion_timestamp": "20250825_230621"
+}

@@ -1,0 +1,15 @@
+{
+  "timestamp": "20250825_231038",
+  "args": {
+    "start": 0,
+    "n_trials": 435,
+    "shuffle": false,
+    "seed": 123,
+    "prompt_type": "encourage_middle",
+    "anchors": false,
+    "model": "llama3.2-vision:11b-instruct-fp16",
+    "run_name": "llama3_2-vision_11b-instruct-fp16_encourage_middle",
+    "human_data": "30"
+  },
+  "completion_timestamp": "20250825_231325"
+}

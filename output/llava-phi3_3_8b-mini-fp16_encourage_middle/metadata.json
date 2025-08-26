@@ -1,0 +1,15 @@
+{
+  "timestamp": "20250826_003528",
+  "args": {
+    "start": 0,
+    "n_trials": 435,
+    "shuffle": false,
+    "seed": 123,
+    "prompt_type": "encourage_middle",
+    "anchors": false,
+    "model": "llava-phi3:3.8b-mini-fp16",
+    "run_name": "llava-phi3_3_8b-mini-fp16_encourage_middle",
+    "human_data": "30"
+  },
+  "completion_timestamp": "20250826_004009"
+}

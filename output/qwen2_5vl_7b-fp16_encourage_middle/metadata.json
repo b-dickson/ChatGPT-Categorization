@@ -1,0 +1,15 @@
+{
+  "timestamp": "20250825_232856",
+  "args": {
+    "start": 0,
+    "n_trials": 435,
+    "shuffle": false,
+    "seed": 123,
+    "prompt_type": "encourage_middle",
+    "anchors": false,
+    "model": "qwen2.5vl:7b-fp16",
+    "run_name": "qwen2_5vl_7b-fp16_encourage_middle",
+    "human_data": "30"
+  },
+  "completion_timestamp": "20250825_233320"
+}

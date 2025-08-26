@@ -1,0 +1,15 @@
+{
+  "timestamp": "20250825_230230",
+  "args": {
+    "start": 0,
+    "n_trials": 435,
+    "shuffle": false,
+    "seed": 123,
+    "prompt_type": "encourage_middle",
+    "anchors": false,
+    "model": "llava:7b-v1.6-vicuna-fp16",
+    "run_name": "llava_7b-v1_6-vicuna-fp16_encourage_middle",
+    "human_data": "30"
+  },
+  "completion_timestamp": "20250825_230355"
+}
