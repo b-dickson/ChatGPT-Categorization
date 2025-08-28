@@ -17,15 +17,19 @@ models=(
 
 # Default parameters - you can override these
 START=${START:-0}
-N_TRIALS=${N_TRIALS:-435}
+# N_TRIALS - if not set, the Python script will process all remaining pairs
 ANCHORS=${ANCHORS:-""}
-HUMAN_DATA=${HUMAN_DATA:-"30"}
+DATASET=${DATASET:-"30"}
 
 # Prompt types to test
 prompt_types=("base" "encourage_middle")
 
 echo "Starting Ollama model evaluation..."
-echo "Parameters: START=$START, N_TRIALS=$N_TRIALS, HUMAN_DATA=$HUMAN_DATA"
+if [ -z "$N_TRIALS" ]; then
+    echo "Parameters: START=$START, N_TRIALS=ALL (default), DATASET=$DATASET"
+else
+    echo "Parameters: START=$START, N_TRIALS=$N_TRIALS, DATASET=$DATASET"
+fi
 echo "Models to test: ${#models[@]}"
 echo "Prompt types to test: ${#prompt_types[@]} (${prompt_types[*]})"
 echo
@@ -36,7 +40,7 @@ for model in "${models[@]}"; do
         clean_model_name=$(echo "$model" | sed 's/:/_/g' | sed 's/\./_/g')
         
         # Add prompt type to run name
-        run_name="${clean_model_name}_${prompt_type}"
+        run_name="${clean_model_name}_${prompt_type}_${DATASET}"
         
         echo "----------------------------------------"
         echo "Testing model: $model"
@@ -45,7 +49,12 @@ for model in "${models[@]}"; do
         echo "----------------------------------------"
         
         # Build the command
-        cmd="python get_similarities_ollama.py --model \"$model\" --run_name \"${run_name}\" --start $START --n_trials $N_TRIALS --prompt_type $prompt_type --human_data $HUMAN_DATA"
+        cmd="python get_similarities_ollama_simple.py --model \"$model\" --run_name \"${run_name}\" --start $START --prompt_type $prompt_type --dataset $DATASET"
+        
+        # Only add n_trials if it's set
+        if [ ! -z "$N_TRIALS" ]; then
+            cmd="$cmd --n_trials $N_TRIALS"
+        fi
         
         # Add anchors flag if specified
         if [ ! -z "$ANCHORS" ]; then

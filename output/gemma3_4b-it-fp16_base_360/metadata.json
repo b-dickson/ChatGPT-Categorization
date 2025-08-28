@@ -1,0 +1,14 @@
+{
+  "timestamp": "20250828_145744",
+  "args": {
+    "start": 0,
+    "n_trials": 2,
+    "shuffle": false,
+    "seed": 123,
+    "prompt_type": "base",
+    "anchors": false,
+    "model": "gemma3:4b-it-fp16",
+    "run_name": "gemma3_4b-it-fp16_base_360",
+    "human_data": "360"
+  }
+}
