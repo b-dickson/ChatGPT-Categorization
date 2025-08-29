@@ -1,21 +1,19 @@
 #!/bin/bash
 
 # List of Ollama models to test
+#"gemma3:12b-it-fp16"
+#"mistral-small3.1:24b-instruct-2503-fp16"
+#"llava:13b-v1.6-vicuna-fp16"
+#"llava:34b-v1.6-fp16"
 models=(
-"gemma3:12b-it-fp16"
-"gemma3:27b-it-fp16"
-"llava:13b-v1.6-vicuna-fp16"
-"llava:34b-v1.6-fp16"
-"qwen2.5vl:32b-fp16"
-"mistral-small3.1:24b-instruct-2503-fp16"
-"mistral-small3.2:24b-instruct-2506-fp16"
+"qwen2.5vl:72b-fp16"
 )
 
 # Default parameters - you can override these
 START=${START:-0}
 # N_TRIALS - if not set, the Python script will process all remaining pairs
 ANCHORS=${ANCHORS:-""}
-DATASET=${DATASET:-"30"}
+DATASET=${DATASET:-"360"}
 
 # Prompt types to test
 prompt_types=("base" "encourage_middle")
@@ -36,7 +34,7 @@ for model in "${models[@]}"; do
         clean_model_name=$(echo "$model" | sed 's/:/_/g' | sed 's/\./_/g')
         
         # Add prompt type to run name
-        run_name="${clean_model_name}_${prompt_type}_${DATASET}"
+        run_name="${clean_model_name}_${prompt_type}_${DATASET}_decimal"
         
         echo "----------------------------------------"
         echo "Testing model: $model"
@@ -45,7 +43,7 @@ for model in "${models[@]}"; do
         echo "----------------------------------------"
         
         # Build the command
-        cmd="python get_similarities_ollama_simple.py --model \"$model\" --run_name \"${run_name}\" --start $START --prompt_type $prompt_type --dataset $DATASET"
+        cmd="python get_similarities_ollama_simple_decimal.py --model \"$model\" --run_name \"${run_name}\" --start $START --prompt_type $prompt_type --dataset $DATASET"
         
         # Only add n_trials if it's set
         if [ ! -z "$N_TRIALS" ]; then

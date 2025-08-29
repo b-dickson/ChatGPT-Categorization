@@ -1,14 +1,3 @@
-{
-  "timestamp": "20250828_145746",
-  "args": {
-    "start": 0,
-    "n_trials": 2,
-    "shuffle": false,
-    "seed": 123,
-    "prompt_type": "encourage_middle",
-    "anchors": false,
-    "model": "gemma3:4b-it-fp16",
-    "run_name": "gemma3_4b-it-fp16_encourage_middle_360",
-    "human_data": "360"
-  }
-}
+version https://git-lfs.github.com/spec/v1
+oid sha256:ea0f42d948f75cc240c10d4cc24ede266317367542d37feb20753407b0b02625
+size 304
