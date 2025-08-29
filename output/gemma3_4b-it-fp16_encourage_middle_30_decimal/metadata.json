@@ -1,0 +1,17 @@
+{
+  "timestamp": "20250829_072158",
+  "args": {
+    "dataset": "30",
+    "start": 0,
+    "n_trials": 435,
+    "shuffle": false,
+    "seed": 123,
+    "prompt_type": "encourage_middle",
+    "anchors": false,
+    "model": "gemma3:4b-it-fp16",
+    "run_name": "gemma3_4b-it-fp16_encourage_middle_30_decimal"
+  },
+  "image_folder": "data/30_rocks",
+  "completion_timestamp": "20250829_072528",
+  "total_pairs_processed": 435
+}

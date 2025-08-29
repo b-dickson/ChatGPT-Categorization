@@ -1,0 +1,17 @@
+{
+  "timestamp": "20250829_074007",
+  "args": {
+    "dataset": "30",
+    "start": 0,
+    "n_trials": 435,
+    "shuffle": false,
+    "seed": 123,
+    "prompt_type": "base",
+    "anchors": false,
+    "model": "gpt-5-2025-08-07",
+    "run_name": null
+  },
+  "image_folder": "data/30_rocks",
+  "completion_timestamp": "20250829_082853",
+  "total_pairs_processed": 435
+}

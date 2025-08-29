@@ -1,0 +1,436 @@
+index,Rock1,Rock2,Model Rating
+0,I_Andesite_06,I_Basalt_02,4.5
+1,I_Andesite_06,I_Diorite_10,4.5
+2,I_Andesite_06,I_Gabbro_03,4.5
+3,I_Andesite_06,I_Granite_11,4.5
+4,I_Andesite_06,I_Obsidian_09,4.5
+5,I_Andesite_06,I_Pegmatite_01,4.5
+6,I_Andesite_06,I_Peridotite_11,4.5
+7,I_Andesite_06,I_Pumice_06,4.5
+8,I_Andesite_06,I_Rhyolite_11,4.5
+9,I_Andesite_06,M_Amphibolite_07,4.5
+10,I_Andesite_06,M_Anthracite_12,4.0
+11,I_Andesite_06,M_Gneiss_07,4.5
+12,I_Andesite_06,M_Hornfels_08,4.5
+13,I_Andesite_06,M_Marble_04,4.5
+14,I_Andesite_06,M_Migmatite_08,4.5
+15,I_Andesite_06,M_Phyllite_09,4.5
+16,I_Andesite_06,M_Quartzite_09,4.5
+17,I_Andesite_06,M_Schist_02,4.5
+18,I_Andesite_06,M_Slate_09,4.5
+19,I_Andesite_06,S_Bituminous Coal_10,4.5
+20,I_Andesite_06,S_Breccia_11,4.5
+21,I_Andesite_06,S_Chert_03,4.5
+22,I_Andesite_06,S_Conglomerate_08,4.5
+23,I_Andesite_06,S_Dolomite_12,4.5
+24,I_Andesite_06,S_Micrite_09,4.5
+25,I_Andesite_06,S_Rock Gypsum_02,4.0
+26,I_Andesite_06,S_Rock Salt_12,4.5
+27,I_Andesite_06,S_Sandstone_12,4.5
+28,I_Andesite_06,S_Shale_04,4.5
+29,I_Basalt_02,I_Diorite_10,4.5
+30,I_Basalt_02,I_Gabbro_03,4.5
+31,I_Basalt_02,I_Granite_11,4.5
+32,I_Basalt_02,I_Obsidian_09,4.5
+33,I_Basalt_02,I_Pegmatite_01,4.5
+34,I_Basalt_02,I_Peridotite_11,4.0
+35,I_Basalt_02,I_Pumice_06,4.0
+36,I_Basalt_02,I_Rhyolite_11,4.0
+37,I_Basalt_02,M_Amphibolite_07,4.5
+38,I_Basalt_02,M_Anthracite_12,4.0
+39,I_Basalt_02,M_Gneiss_07,4.0
+40,I_Basalt_02,M_Hornfels_08,4.5
+41,I_Basalt_02,M_Marble_04,4.0
+42,I_Basalt_02,M_Migmatite_08,4.5
+43,I_Basalt_02,M_Phyllite_09,4.0
+44,I_Basalt_02,M_Quartzite_09,4.0
+45,I_Basalt_02,M_Schist_02,4.0
+46,I_Basalt_02,M_Slate_09,4.5
+47,I_Basalt_02,S_Bituminous Coal_10,4.5
+48,I_Basalt_02,S_Breccia_11,4.5
+49,I_Basalt_02,S_Chert_03,4.5
+50,I_Basalt_02,S_Conglomerate_08,4.5
+51,I_Basalt_02,S_Dolomite_12,4.0
+52,I_Basalt_02,S_Micrite_09,4.5
+53,I_Basalt_02,S_Rock Gypsum_02,4.0
+54,I_Basalt_02,S_Rock Salt_12,4.5
+55,I_Basalt_02,S_Sandstone_12,4.5
+56,I_Basalt_02,S_Shale_04,4.0
+57,I_Diorite_10,I_Gabbro_03,4.5
+58,I_Diorite_10,I_Granite_11,4.5
+59,I_Diorite_10,I_Obsidian_09,4.5
+60,I_Diorite_10,I_Pegmatite_01,4.5
+61,I_Diorite_10,I_Peridotite_11,4.5
+62,I_Diorite_10,I_Pumice_06,4.5
+63,I_Diorite_10,I_Rhyolite_11,4.5
+64,I_Diorite_10,M_Amphibolite_07,4.5
+65,I_Diorite_10,M_Anthracite_12,4.0
+66,I_Diorite_10,M_Gneiss_07,4.5
+67,I_Diorite_10,M_Hornfels_08,4.5
+68,I_Diorite_10,M_Marble_04,4.5
+69,I_Diorite_10,M_Migmatite_08,4.5
+70,I_Diorite_10,M_Phyllite_09,4.5
+71,I_Diorite_10,M_Quartzite_09,4.5
+72,I_Diorite_10,M_Schist_02,4.5
+73,I_Diorite_10,M_Slate_09,4.5
+74,I_Diorite_10,S_Bituminous Coal_10,4.5
+75,I_Diorite_10,S_Breccia_11,4.5
+76,I_Diorite_10,S_Chert_03,4.5
+77,I_Diorite_10,S_Conglomerate_08,4.5
+78,I_Diorite_10,S_Dolomite_12,4.5
+79,I_Diorite_10,S_Micrite_09,4.5
+80,I_Diorite_10,S_Rock Gypsum_02,4.0
+81,I_Diorite_10,S_Rock Salt_12,4.5
+82,I_Diorite_10,S_Sandstone_12,4.5
+83,I_Diorite_10,S_Shale_04,4.5
+84,I_Gabbro_03,I_Granite_11,4.5
+85,I_Gabbro_03,I_Obsidian_09,4.5
+86,I_Gabbro_03,I_Pegmatite_01,4.5
+87,I_Gabbro_03,I_Peridotite_11,4.5
+88,I_Gabbro_03,I_Pumice_06,4.5
+89,I_Gabbro_03,I_Rhyolite_11,4.0
+90,I_Gabbro_03,M_Amphibolite_07,4.5
+91,I_Gabbro_03,M_Anthracite_12,4.0
+92,I_Gabbro_03,M_Gneiss_07,4.5
+93,I_Gabbro_03,M_Hornfels_08,4.5
+94,I_Gabbro_03,M_Marble_04,4.5
+95,I_Gabbro_03,M_Migmatite_08,4.5
+96,I_Gabbro_03,M_Phyllite_09,4.5
+97,I_Gabbro_03,M_Quartzite_09,4.5
+98,I_Gabbro_03,M_Schist_02,4.5
+99,I_Gabbro_03,M_Slate_09,4.5
+100,I_Gabbro_03,S_Bituminous Coal_10,4.5
+101,I_Gabbro_03,S_Breccia_11,4.5
+102,I_Gabbro_03,S_Chert_03,4.5
+103,I_Gabbro_03,S_Conglomerate_08,4.5
+104,I_Gabbro_03,S_Dolomite_12,4.5
+105,I_Gabbro_03,S_Micrite_09,4.5
+106,I_Gabbro_03,S_Rock Gypsum_02,4.0
+107,I_Gabbro_03,S_Rock Salt_12,4.5
+108,I_Gabbro_03,S_Sandstone_12,4.5
+109,I_Gabbro_03,S_Shale_04,4.5
+110,I_Granite_11,I_Obsidian_09,4.5
+111,I_Granite_11,I_Pegmatite_01,4.5
+112,I_Granite_11,I_Peridotite_11,4.5
+113,I_Granite_11,I_Pumice_06,4.5
+114,I_Granite_11,I_Rhyolite_11,4.5
+115,I_Granite_11,M_Amphibolite_07,4.5
+116,I_Granite_11,M_Anthracite_12,4.0
+117,I_Granite_11,M_Gneiss_07,4.5
+118,I_Granite_11,M_Hornfels_08,4.5
+119,I_Granite_11,M_Marble_04,4.5
+120,I_Granite_11,M_Migmatite_08,4.5
+121,I_Granite_11,M_Phyllite_09,4.5
+122,I_Granite_11,M_Quartzite_09,4.5
+123,I_Granite_11,M_Schist_02,4.5
+124,I_Granite_11,M_Slate_09,4.5
+125,I_Granite_11,S_Bituminous Coal_10,4.5
+126,I_Granite_11,S_Breccia_11,4.5
+127,I_Granite_11,S_Chert_03,4.5
+128,I_Granite_11,S_Conglomerate_08,4.5
+129,I_Granite_11,S_Dolomite_12,4.5
+130,I_Granite_11,S_Micrite_09,4.5
+131,I_Granite_11,S_Rock Gypsum_02,4.5
+132,I_Granite_11,S_Rock Salt_12,4.5
+133,I_Granite_11,S_Sandstone_12,4.5
+134,I_Granite_11,S_Shale_04,4.0
+135,I_Obsidian_09,I_Pegmatite_01,4.0
+136,I_Obsidian_09,I_Peridotite_11,4.5
+137,I_Obsidian_09,I_Pumice_06,4.0
+138,I_Obsidian_09,I_Rhyolite_11,4.0
+139,I_Obsidian_09,M_Amphibolite_07,4.5
+140,I_Obsidian_09,M_Anthracite_12,4.0
+141,I_Obsidian_09,M_Gneiss_07,4.5
+142,I_Obsidian_09,M_Hornfels_08,4.5
+143,I_Obsidian_09,M_Marble_04,4.0
+144,I_Obsidian_09,M_Migmatite_08,4.5
+145,I_Obsidian_09,M_Phyllite_09,4.0
+146,I_Obsidian_09,M_Quartzite_09,4.0
+147,I_Obsidian_09,M_Schist_02,4.0
+148,I_Obsidian_09,M_Slate_09,4.5
+149,I_Obsidian_09,S_Bituminous Coal_10,4.0
+150,I_Obsidian_09,S_Breccia_11,4.5
+151,I_Obsidian_09,S_Chert_03,4.5
+152,I_Obsidian_09,S_Conglomerate_08,4.0
+153,I_Obsidian_09,S_Dolomite_12,4.0
+154,I_Obsidian_09,S_Micrite_09,4.5
+155,I_Obsidian_09,S_Rock Gypsum_02,4.0
+156,I_Obsidian_09,S_Rock Salt_12,4.5
+157,I_Obsidian_09,S_Sandstone_12,4.0
+158,I_Obsidian_09,S_Shale_04,4.0
+159,I_Pegmatite_01,I_Peridotite_11,4.5
+160,I_Pegmatite_01,I_Pumice_06,4.5
+161,I_Pegmatite_01,I_Rhyolite_11,4.0
+162,I_Pegmatite_01,M_Amphibolite_07,4.5
+163,I_Pegmatite_01,M_Anthracite_12,4.0
+164,I_Pegmatite_01,M_Gneiss_07,4.5
+165,I_Pegmatite_01,M_Hornfels_08,4.5
+166,I_Pegmatite_01,M_Marble_04,4.5
+167,I_Pegmatite_01,M_Migmatite_08,4.5
+168,I_Pegmatite_01,M_Phyllite_09,4.5
+169,I_Pegmatite_01,M_Quartzite_09,4.5
+170,I_Pegmatite_01,M_Schist_02,4.5
+171,I_Pegmatite_01,M_Slate_09,4.5
+172,I_Pegmatite_01,S_Bituminous Coal_10,4.5
+173,I_Pegmatite_01,S_Breccia_11,4.5
+174,I_Pegmatite_01,S_Chert_03,4.5
+175,I_Pegmatite_01,S_Conglomerate_08,4.5
+176,I_Pegmatite_01,S_Dolomite_12,4.5
+177,I_Pegmatite_01,S_Micrite_09,4.5
+178,I_Pegmatite_01,S_Rock Gypsum_02,4.0
+179,I_Pegmatite_01,S_Rock Salt_12,4.5
+180,I_Pegmatite_01,S_Sandstone_12,4.5
+181,I_Pegmatite_01,S_Shale_04,4.0
+182,I_Peridotite_11,I_Pumice_06,4.5
+183,I_Peridotite_11,I_Rhyolite_11,4.0
+184,I_Peridotite_11,M_Amphibolite_07,4.5
+185,I_Peridotite_11,M_Anthracite_12,4.0
+186,I_Peridotite_11,M_Gneiss_07,4.5
+187,I_Peridotite_11,M_Hornfels_08,4.5
+188,I_Peridotite_11,M_Marble_04,4.5
+189,I_Peridotite_11,M_Migmatite_08,4.5
+190,I_Peridotite_11,M_Phyllite_09,4.5
+191,I_Peridotite_11,M_Quartzite_09,4.5
+192,I_Peridotite_11,M_Schist_02,4.5
+193,I_Peridotite_11,M_Slate_09,4.5
+194,I_Peridotite_11,S_Bituminous Coal_10,4.5
+195,I_Peridotite_11,S_Breccia_11,4.5
+196,I_Peridotite_11,S_Chert_03,4.5
+197,I_Peridotite_11,S_Conglomerate_08,4.5
+198,I_Peridotite_11,S_Dolomite_12,4.5
+199,I_Peridotite_11,S_Micrite_09,4.5
+200,I_Peridotite_11,S_Rock Gypsum_02,4.0
+201,I_Peridotite_11,S_Rock Salt_12,4.5
+202,I_Peridotite_11,S_Sandstone_12,4.5
+203,I_Peridotite_11,S_Shale_04,4.5
+204,I_Pumice_06,I_Rhyolite_11,4.0
+205,I_Pumice_06,M_Amphibolite_07,4.5
+206,I_Pumice_06,M_Anthracite_12,4.0
+207,I_Pumice_06,M_Gneiss_07,4.0
+208,I_Pumice_06,M_Hornfels_08,4.5
+209,I_Pumice_06,M_Marble_04,4.5
+210,I_Pumice_06,M_Migmatite_08,4.5
+211,I_Pumice_06,M_Phyllite_09,4.5
+212,I_Pumice_06,M_Quartzite_09,4.5
+213,I_Pumice_06,M_Schist_02,4.0
+214,I_Pumice_06,M_Slate_09,4.5
+215,I_Pumice_06,S_Bituminous Coal_10,4.0
+216,I_Pumice_06,S_Breccia_11,4.5
+217,I_Pumice_06,S_Chert_03,4.5
+218,I_Pumice_06,S_Conglomerate_08,4.5
+219,I_Pumice_06,S_Dolomite_12,4.5
+220,I_Pumice_06,S_Micrite_09,4.5
+221,I_Pumice_06,S_Rock Gypsum_02,4.0
+222,I_Pumice_06,S_Rock Salt_12,4.5
+223,I_Pumice_06,S_Sandstone_12,4.5
+224,I_Pumice_06,S_Shale_04,4.0
+225,I_Rhyolite_11,M_Amphibolite_07,4.5
+226,I_Rhyolite_11,M_Anthracite_12,4.0
+227,I_Rhyolite_11,M_Gneiss_07,4.0
+228,I_Rhyolite_11,M_Hornfels_08,4.5
+229,I_Rhyolite_11,M_Marble_04,4.0
+230,I_Rhyolite_11,M_Migmatite_08,4.5
+231,I_Rhyolite_11,M_Phyllite_09,4.0
+232,I_Rhyolite_11,M_Quartzite_09,4.5
+233,I_Rhyolite_11,M_Schist_02,4.0
+234,I_Rhyolite_11,M_Slate_09,4.5
+235,I_Rhyolite_11,S_Bituminous Coal_10,4.0
+236,I_Rhyolite_11,S_Breccia_11,4.5
+237,I_Rhyolite_11,S_Chert_03,4.5
+238,I_Rhyolite_11,S_Conglomerate_08,4.0
+239,I_Rhyolite_11,S_Dolomite_12,4.5
+240,I_Rhyolite_11,S_Micrite_09,4.5
+241,I_Rhyolite_11,S_Rock Gypsum_02,4.0
+242,I_Rhyolite_11,S_Rock Salt_12,4.5
+243,I_Rhyolite_11,S_Sandstone_12,4.5
+244,I_Rhyolite_11,S_Shale_04,4.0
+245,M_Amphibolite_07,M_Anthracite_12,4.5
+246,M_Amphibolite_07,M_Gneiss_07,4.5
+247,M_Amphibolite_07,M_Hornfels_08,4.5
+248,M_Amphibolite_07,M_Marble_04,4.5
+249,M_Amphibolite_07,M_Migmatite_08,4.5
+250,M_Amphibolite_07,M_Phyllite_09,4.5
+251,M_Amphibolite_07,M_Quartzite_09,4.5
+252,M_Amphibolite_07,M_Schist_02,4.5
+253,M_Amphibolite_07,M_Slate_09,4.5
+254,M_Amphibolite_07,S_Bituminous Coal_10,4.5
+255,M_Amphibolite_07,S_Breccia_11,4.5
+256,M_Amphibolite_07,S_Chert_03,4.5
+257,M_Amphibolite_07,S_Conglomerate_08,4.5
+258,M_Amphibolite_07,S_Dolomite_12,4.5
+259,M_Amphibolite_07,S_Micrite_09,4.5
+260,M_Amphibolite_07,S_Rock Gypsum_02,4.0
+261,M_Amphibolite_07,S_Rock Salt_12,4.5
+262,M_Amphibolite_07,S_Sandstone_12,4.5
+263,M_Amphibolite_07,S_Shale_04,4.5
+264,M_Anthracite_12,M_Gneiss_07,4.0
+265,M_Anthracite_12,M_Hornfels_08,4.5
+266,M_Anthracite_12,M_Marble_04,4.0
+267,M_Anthracite_12,M_Migmatite_08,4.5
+268,M_Anthracite_12,M_Phyllite_09,4.0
+269,M_Anthracite_12,M_Quartzite_09,4.0
+270,M_Anthracite_12,M_Schist_02,4.0
+271,M_Anthracite_12,M_Slate_09,4.5
+272,M_Anthracite_12,S_Bituminous Coal_10,4.0
+273,M_Anthracite_12,S_Breccia_11,4.5
+274,M_Anthracite_12,S_Chert_03,4.5
+275,M_Anthracite_12,S_Conglomerate_08,4.0
+276,M_Anthracite_12,S_Dolomite_12,4.0
+277,M_Anthracite_12,S_Micrite_09,4.5
+278,M_Anthracite_12,S_Rock Gypsum_02,4.0
+279,M_Anthracite_12,S_Rock Salt_12,4.5
+280,M_Anthracite_12,S_Sandstone_12,4.0
+281,M_Anthracite_12,S_Shale_04,4.0
+282,M_Gneiss_07,M_Hornfels_08,4.5
+283,M_Gneiss_07,M_Marble_04,4.0
+284,M_Gneiss_07,M_Migmatite_08,4.5
+285,M_Gneiss_07,M_Phyllite_09,4.5
+286,M_Gneiss_07,M_Quartzite_09,4.5
+287,M_Gneiss_07,M_Schist_02,4.5
+288,M_Gneiss_07,M_Slate_09,4.5
+289,M_Gneiss_07,S_Bituminous Coal_10,4.5
+290,M_Gneiss_07,S_Breccia_11,4.5
+291,M_Gneiss_07,S_Chert_03,4.5
+292,M_Gneiss_07,S_Conglomerate_08,4.5
+293,M_Gneiss_07,S_Dolomite_12,4.5
+294,M_Gneiss_07,S_Micrite_09,4.5
+295,M_Gneiss_07,S_Rock Gypsum_02,4.0
+296,M_Gneiss_07,S_Rock Salt_12,4.5
+297,M_Gneiss_07,S_Sandstone_12,4.5
+298,M_Gneiss_07,S_Shale_04,4.0
+299,M_Hornfels_08,M_Marble_04,4.5
+300,M_Hornfels_08,M_Migmatite_08,4.5
+301,M_Hornfels_08,M_Phyllite_09,4.5
+302,M_Hornfels_08,M_Quartzite_09,4.5
+303,M_Hornfels_08,M_Schist_02,4.5
+304,M_Hornfels_08,M_Slate_09,4.5
+305,M_Hornfels_08,S_Bituminous Coal_10,4.5
+306,M_Hornfels_08,S_Breccia_11,4.5
+307,M_Hornfels_08,S_Chert_03,4.5
+308,M_Hornfels_08,S_Conglomerate_08,4.5
+309,M_Hornfels_08,S_Dolomite_12,4.5
+310,M_Hornfels_08,S_Micrite_09,4.5
+311,M_Hornfels_08,S_Rock Gypsum_02,4.0
+312,M_Hornfels_08,S_Rock Salt_12,4.5
+313,M_Hornfels_08,S_Sandstone_12,4.5
+314,M_Hornfels_08,S_Shale_04,4.5
+315,M_Marble_04,M_Migmatite_08,4.5
+316,M_Marble_04,M_Phyllite_09,4.0
+317,M_Marble_04,M_Quartzite_09,4.5
+318,M_Marble_04,M_Schist_02,4.0
+319,M_Marble_04,M_Slate_09,4.5
+320,M_Marble_04,S_Bituminous Coal_10,4.0
+321,M_Marble_04,S_Breccia_11,4.5
+322,M_Marble_04,S_Chert_03,4.5
+323,M_Marble_04,S_Conglomerate_08,4.5
+324,M_Marble_04,S_Dolomite_12,4.5
+325,M_Marble_04,S_Micrite_09,4.5
+326,M_Marble_04,S_Rock Gypsum_02,4.0
+327,M_Marble_04,S_Rock Salt_12,4.5
+328,M_Marble_04,S_Sandstone_12,4.5
+329,M_Marble_04,S_Shale_04,4.0
+330,M_Migmatite_08,M_Phyllite_09,4.5
+331,M_Migmatite_08,M_Quartzite_09,4.5
+332,M_Migmatite_08,M_Schist_02,4.5
+333,M_Migmatite_08,M_Slate_09,4.5
+334,M_Migmatite_08,S_Bituminous Coal_10,4.5
+335,M_Migmatite_08,S_Breccia_11,4.5
+336,M_Migmatite_08,S_Chert_03,4.5
+337,M_Migmatite_08,S_Conglomerate_08,4.5
+338,M_Migmatite_08,S_Dolomite_12,4.5
+339,M_Migmatite_08,S_Micrite_09,4.5
+340,M_Migmatite_08,S_Rock Gypsum_02,4.5
+341,M_Migmatite_08,S_Rock Salt_12,4.5
+342,M_Migmatite_08,S_Sandstone_12,4.5
+343,M_Migmatite_08,S_Shale_04,4.5
+344,M_Phyllite_09,M_Quartzite_09,4.5
+345,M_Phyllite_09,M_Schist_02,4.5
+346,M_Phyllite_09,M_Slate_09,4.5
+347,M_Phyllite_09,S_Bituminous Coal_10,4.0
+348,M_Phyllite_09,S_Breccia_11,4.5
+349,M_Phyllite_09,S_Chert_03,4.5
+350,M_Phyllite_09,S_Conglomerate_08,4.5
+351,M_Phyllite_09,S_Dolomite_12,4.5
+352,M_Phyllite_09,S_Micrite_09,4.5
+353,M_Phyllite_09,S_Rock Gypsum_02,4.0
+354,M_Phyllite_09,S_Rock Salt_12,4.5
+355,M_Phyllite_09,S_Sandstone_12,4.5
+356,M_Phyllite_09,S_Shale_04,4.0
+357,M_Quartzite_09,M_Schist_02,4.5
+358,M_Quartzite_09,M_Slate_09,4.5
+359,M_Quartzite_09,S_Bituminous Coal_10,4.0
+360,M_Quartzite_09,S_Breccia_11,4.5
+361,M_Quartzite_09,S_Chert_03,4.5
+362,M_Quartzite_09,S_Conglomerate_08,4.5
+363,M_Quartzite_09,S_Dolomite_12,4.5
+364,M_Quartzite_09,S_Micrite_09,4.5
+365,M_Quartzite_09,S_Rock Gypsum_02,4.0
+366,M_Quartzite_09,S_Rock Salt_12,4.5
+367,M_Quartzite_09,S_Sandstone_12,4.5
+368,M_Quartzite_09,S_Shale_04,4.0
+369,M_Schist_02,M_Slate_09,4.5
+370,M_Schist_02,S_Bituminous Coal_10,4.0
+371,M_Schist_02,S_Breccia_11,4.5
+372,M_Schist_02,S_Chert_03,4.5
+373,M_Schist_02,S_Conglomerate_08,4.5
+374,M_Schist_02,S_Dolomite_12,4.5
+375,M_Schist_02,S_Micrite_09,4.5
+376,M_Schist_02,S_Rock Gypsum_02,4.0
+377,M_Schist_02,S_Rock Salt_12,4.5
+378,M_Schist_02,S_Sandstone_12,4.5
+379,M_Schist_02,S_Shale_04,4.0
+380,M_Slate_09,S_Bituminous Coal_10,4.5
+381,M_Slate_09,S_Breccia_11,4.5
+382,M_Slate_09,S_Chert_03,4.5
+383,M_Slate_09,S_Conglomerate_08,4.5
+384,M_Slate_09,S_Dolomite_12,4.5
+385,M_Slate_09,S_Micrite_09,4.5
+386,M_Slate_09,S_Rock Gypsum_02,4.0
+387,M_Slate_09,S_Rock Salt_12,4.5
+388,M_Slate_09,S_Sandstone_12,4.5
+389,M_Slate_09,S_Shale_04,4.5
+390,S_Bituminous Coal_10,S_Breccia_11,4.5
+391,S_Bituminous Coal_10,S_Chert_03,4.5
+392,S_Bituminous Coal_10,S_Conglomerate_08,4.0
+393,S_Bituminous Coal_10,S_Dolomite_12,4.0
+394,S_Bituminous Coal_10,S_Micrite_09,4.5
+395,S_Bituminous Coal_10,S_Rock Gypsum_02,4.0
+396,S_Bituminous Coal_10,S_Rock Salt_12,4.0
+397,S_Bituminous Coal_10,S_Sandstone_12,4.5
+398,S_Bituminous Coal_10,S_Shale_04,4.0
+399,S_Breccia_11,S_Chert_03,4.5
+400,S_Breccia_11,S_Conglomerate_08,4.5
+401,S_Breccia_11,S_Dolomite_12,4.5
+402,S_Breccia_11,S_Micrite_09,4.5
+403,S_Breccia_11,S_Rock Gypsum_02,4.5
+404,S_Breccia_11,S_Rock Salt_12,4.5
+405,S_Breccia_11,S_Sandstone_12,4.5
+406,S_Breccia_11,S_Shale_04,4.5
+407,S_Chert_03,S_Conglomerate_08,4.5
+408,S_Chert_03,S_Dolomite_12,4.5
+409,S_Chert_03,S_Micrite_09,4.5
+410,S_Chert_03,S_Rock Gypsum_02,4.0
+411,S_Chert_03,S_Rock Salt_12,4.5
+412,S_Chert_03,S_Sandstone_12,4.5
+413,S_Chert_03,S_Shale_04,4.0
+414,S_Conglomerate_08,S_Dolomite_12,4.5
+415,S_Conglomerate_08,S_Micrite_09,4.5
+416,S_Conglomerate_08,S_Rock Gypsum_02,4.5
+417,S_Conglomerate_08,S_Rock Salt_12,4.5
+418,S_Conglomerate_08,S_Sandstone_12,4.5
+419,S_Conglomerate_08,S_Shale_04,4.5
+420,S_Dolomite_12,S_Micrite_09,4.5
+421,S_Dolomite_12,S_Rock Gypsum_02,4.0
+422,S_Dolomite_12,S_Rock Salt_12,4.5
+423,S_Dolomite_12,S_Sandstone_12,4.5
+424,S_Dolomite_12,S_Shale_04,4.0
+425,S_Micrite_09,S_Rock Gypsum_02,4.0
+426,S_Micrite_09,S_Rock Salt_12,4.5
+427,S_Micrite_09,S_Sandstone_12,4.5
+428,S_Micrite_09,S_Shale_04,4.5
+429,S_Rock Gypsum_02,S_Rock Salt_12,4.5
+430,S_Rock Gypsum_02,S_Sandstone_12,4.0
+431,S_Rock Gypsum_02,S_Shale_04,4.0
+432,S_Rock Salt_12,S_Sandstone_12,4.5
+433,S_Rock Salt_12,S_Shale_04,4.5
+434,S_Sandstone_12,S_Shale_04,4.0

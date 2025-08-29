@@ -1,18 +1,16 @@
 #!/bin/bash
 
 # List of Ollama models to test
+#    "llava:7b-v1.6-vicuna-fp16"
+#    "minicpm-v:8b-2.6-fp16"
+#    "llama3.2-vision:11b-instruct-fp16"
+#    "llava-llama3:8b-v1.1-fp16"
+#    "granite3.2-vision:2b-fp16"
+#    "moondream:1.8b-v2-fp16"
+#    "bakllava:7b-v1-fp16"
+#    "llava-phi3:3.8b-mini-fp16"
 models=(
-    "gemma3:4b-it-fp16"
-    "llava:7b-v1.6-vicuna-fp16"
-    "minicpm-v:8b-2.6-fp16"
-    "llama3.2-vision:11b-instruct-fp16"
-    "llava-llama3:8b-v1.1-fp16"
-    "qwen2.5vl:3b-fp16"
     "qwen2.5vl:7b-fp16"
-    "granite3.2-vision:2b-fp16"
-    "moondream:1.8b-v2-fp16"
-    "bakllava:7b-v1-fp16"
-    "llava-phi3:3.8b-mini-fp16"
 )
 
 # Default parameters - you can override these
@@ -40,7 +38,7 @@ for model in "${models[@]}"; do
         clean_model_name=$(echo "$model" | sed 's/:/_/g' | sed 's/\./_/g')
         
         # Add prompt type to run name
-        run_name="${clean_model_name}_${prompt_type}_${DATASET}"
+        run_name="${clean_model_name}_${prompt_type}_${DATASET}_integer"
         
         echo "----------------------------------------"
         echo "Testing model: $model"
@@ -49,7 +47,7 @@ for model in "${models[@]}"; do
         echo "----------------------------------------"
         
         # Build the command
-        cmd="python get_similarities_ollama_simple.py --model \"$model\" --run_name \"${run_name}\" --start $START --prompt_type $prompt_type --dataset $DATASET"
+        cmd="python get_similarities_ollama_simple_integer.py --model \"$model\" --run_name \"${run_name}\" --start $START --prompt_type $prompt_type --dataset $DATASET"
         
         # Only add n_trials if it's set
         if [ ! -z "$N_TRIALS" ]; then

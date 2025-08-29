@@ -30,15 +30,16 @@ os.makedirs(OUTPUT_FOLDER, exist_ok=True)
 
 BASE_PROMPT = (
     "You are assisting in a study in which you are shown pairs of rocks and "
-    "rate how visually similar they are on a scale from 1 to 9, with 1 being most dissimilar, "
-    "5 being moderately similar, and 9 being most similar. "
-    "You only respond with a single number from 1 to 9, without explaining your reasoning. "
+    "rate how visually similar they are on a decimal scale from 1.00 to 9.00, with 1.00 being most dissimilar, "
+    "5.00 being moderately similar, and 9.00 being most similar. "
+    "You only respond with a single decimal number from 1.00 to 9.00, without explaining your reasoning. "
+    "It must be formatted to exactly two decimal places (the hundredths place)"
 )
 
 ENCOURAGE_MIDDLE_PROMPT = BASE_PROMPT + (
-    "You use the full range of the 1-9 scale and err on the side of using the middle of the scale (4 or 5) when you are unsure. "
-    "Rocks that are very similar in almost all respects should be rated as highly similar (8 or 9). "
-    "You only use a 1 or 2 when the rocks are truly different in every meaningful visual way. "
+    "You use the full range of the 1.00-9.00 scale and err on the side of using the middle of the scale (4.00 to 5.00) when you are unsure. "
+    "Rocks that are very similar in almost all respects should be rated as highly similar (8.00 to 9.00). "
+    "You only use 1.00 to 2.00 when the rocks are truly different in every meaningful visual way. "
     "Most ratings should fall somewhere in the middle of the scale. "
 )
 
@@ -209,10 +210,10 @@ def get_responses(client, rock1, rock2, prompt_type, anchors, model, image_folde
         client,
         model=model,
         messages=messages,
-        logprobs=True,
-        top_logprobs=20,
+#        logprobs=False,
+#        top_logprobs=20,
         seed=seed,
-        max_completion_tokens=1,
+        max_completion_tokens=1000,
     )
     return response
 
@@ -318,8 +319,8 @@ def main(args):
             continue
         
         # Extract rating from response
-        logprobs = response.choices[0].logprobs.content[0].top_logprobs
-        gpt5_rating = get_average_rating(logprobs, number_map)
+#        logprobs = response.choices[0].logprobs.content[0].top_logprobs
+#        gpt5_rating = get_average_rating(logprobs, number_map)
 
         with open(raw_responses, mode="a", encoding="utf-8") as rawfile:
             rawfile.write(
@@ -336,24 +337,24 @@ def main(args):
                 + "\n"
             )
 
-        with open(similarity_output, mode="a", newline="", encoding="utf-8") as csvfile:
-            fieldnames = [
-                "index",
-                "Rock1",
-                "Rock2",
-                "GPT5 Rating",
-            ]
-            writer = csv.DictWriter(csvfile, fieldnames=fieldnames)
-            if csvfile.tell() == 0:
-                writer.writeheader()
-            writer.writerow(
-                {
-                    "index": i,
-                    "Rock1": rock1,
-                    "Rock2": rock2,
-                    "GPT5 Rating": gpt5_rating,
-                }
-            )
+#        with open(similarity_output, mode="a", newline="", encoding="utf-8") as csvfile:
+#            fieldnames = [
+#                "index",
+#                "Rock1",
+#                "Rock2",
+#                "GPT5 Rating",
+#            ]
+#            writer = csv.DictWriter(csvfile, fieldnames=fieldnames)
+#            if csvfile.tell() == 0:
+#                writer.writeheader()
+#            writer.writerow(
+#                {
+#                    "index": i,
+#                    "Rock1": rock1,
+#                    "Rock2": rock2,
+#                    "GPT5 Rating": gpt5_rating,
+#                }
+#            )
 
     print(f"\n\nCompleted processing {len(pairs)} pairs")
     
