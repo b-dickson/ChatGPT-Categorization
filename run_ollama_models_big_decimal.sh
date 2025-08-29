@@ -5,7 +5,10 @@
 #"mistral-small3.1:24b-instruct-2503-fp16"
 #"llava:13b-v1.6-vicuna-fp16"
 #"llava:34b-v1.6-fp16"
+#"mistral-small3.2:24b-instruct-2506-fp16"
 models=(
+"qwen2.5vl:32b-fp16"
+"gemma3:12b-it-fp16"
 "qwen2.5vl:72b-fp16"
 )
 
@@ -13,7 +16,7 @@ models=(
 START=${START:-0}
 # N_TRIALS - if not set, the Python script will process all remaining pairs
 ANCHORS=${ANCHORS:-""}
-DATASET=${DATASET:-"360"}
+DATASET=${DATASET:-"30"}
 
 # Prompt types to test
 prompt_types=("base" "encourage_middle")

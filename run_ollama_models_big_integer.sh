@@ -1,13 +1,14 @@
 #!/bin/bash
 
 # List of Ollama models to test
-#"gemma3:12b-it-fp16"
 #"mistral-small3.1:24b-instruct-2503-fp16"
 #"llava:13b-v1.6-vicuna-fp16"
 #"llava:34b-v1.6-fp16"
+#"mistral-small3.2:24b-instruct-2506-fp16"
 models=(
-"gemma3:27b-it-fp16"
-"mistral-small3.2:24b-instruct-2506-fp16"
+"gemma3:12b-it-fp16"
+"qwen2.5vl:32b-fp16"
+"qwen2.5vl:72b-fp16"
 )
 
 # Default parameters - you can override these
